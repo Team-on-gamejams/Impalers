@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Impalers"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="400">
+        Title="Impalers" Height="400" Width="400"
+        Icon="Resources\icon.png"
+        Style="{StaticResource VS2012WindowStyle}">
     <Grid>
         
     </Grid>

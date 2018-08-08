@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="styles\CustomizedWindow\VS2012WindowStyle.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,6 +67,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="styles\CustomizedWindow\VS2012WindowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -92,6 +101,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\ash.png" />
+    <Resource Include="Resources\mangal.png" />
+    <Resource Include="Resources\Pl1\Untitled-1.png" />
+    <Resource Include="Resources\Pl1\Untitled-3.png" />
+    <Resource Include="Resources\Pl2\1.png" />
+    <Resource Include="Resources\Pl2\2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Meat\s1.png" />
+    <Resource Include="Resources\Meat\s10.png" />
+    <Resource Include="Resources\Meat\s2.png" />
+    <Resource Include="Resources\Meat\s3.png" />
+    <Resource Include="Resources\Meat\s4.png" />
+    <Resource Include="Resources\Meat\s5.png" />
+    <Resource Include="Resources\Meat\s6.png" />
+    <Resource Include="Resources\Meat\s7.png" />
+    <Resource Include="Resources\Meat\s8.png" />
+    <Resource Include="Resources\Meat\s9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
