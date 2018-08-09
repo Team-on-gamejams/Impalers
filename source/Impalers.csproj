@@ -62,6 +62,7 @@
       <DependentUpon>HightScoresWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Singletons.cs" />
     <Compile Include="styles\CustomizedWindow\VS2012WindowStyle.cs" />
     <Compile Include="WindowManager.cs" />
     <Page Include="GameWindow.xaml">

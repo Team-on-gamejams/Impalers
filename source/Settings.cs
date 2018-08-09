@@ -8,7 +8,5 @@ namespace Impalers {
 	static class Settings {
 		static public byte sizeX = 14;
 		static public byte sizeY = 5;
-		
-		static public Random rand = new Random(13/*(System.Int32)(DateTime.Now.Ticks % System.Int32.MaxValue)*/);
 	}
 }

@@ -18,7 +18,9 @@ namespace Impalers {
 		public Enemy enemy;
 
 		public GameCell[,] map = new GameCell[Settings.sizeY, Settings.sizeX];
-		public bool playerTurn;
+		public bool isPlayerTurn;
+		public ushort scorePlayer, scoreEnemy;
+		public ushort counterMeatPlayer, counterMeatEnemy, counterImpalePlayer, counterImpaleEnemy;
 
 		public Game() {
 			for (byte i = 0; i < Settings.sizeY; ++i)
@@ -31,7 +33,24 @@ namespace Impalers {
 			for (byte i = 0; i < Settings.sizeY; ++i)
 				for (byte j = 0; j < Settings.sizeX; ++j)
 					map[i, j].Init();
-			playerTurn = true;
+			isPlayerTurn = true;
+			scorePlayer = scoreEnemy = 0;
+		}
+
+		public void PlaceMeat(byte x, byte y) {
+			map[y, x].isMeat = true;
+			map[y, x].imageMeat.Source = new BitmapImage(new Uri("Resources/Meat/" + Singletons.rand.Next(1, 11) + ".png", UriKind.Relative));
+
+			if (isPlayerTurn) {
+				++scorePlayer;
+				++counterMeatPlayer;
+			}
+			else {
+				++scoreEnemy;
+				++counterMeatEnemy;
+			}
+			isPlayerTurn = !isPlayerTurn;
+
 		}
 
 	}
@@ -64,5 +83,7 @@ namespace Impalers {
 			stickDirection = Direction.None;
 			isStickStart = isStickEnd = isStickBody = isMeat = false;
 		}
+
+		public bool IsEmpty() => !isMeat && !isStickEnd;
 	}
 }

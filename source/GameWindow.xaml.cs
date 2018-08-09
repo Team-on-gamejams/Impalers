@@ -25,6 +25,7 @@ namespace Impalers {
 
 		//---------------------------- Methods ---------------------------------
 		public void StartGame(Game.Enemy enemy) {
+			this.ScoreEnemy.Text = this.ScorePlayer.Text = "0";
 			game.Start(enemy);
 		}
 
@@ -43,9 +44,29 @@ namespace Impalers {
 					Grid.SetColumn(game.map[i, j].grid, j);
 
 					game.map[i, j].grid.PreviewMouseLeftButtonDown += (a, b) => {
-						var img = game.map[Grid.GetRow(a as UIElement), Grid.GetColumn(a as UIElement)].imageMeat.Source;
-						if(img == null)
-							game.map[Grid.GetRow(a as UIElement), Grid.GetColumn(a as UIElement)].imageMeat.Source = new BitmapImage(new Uri("Resources/Meat/" + Settings.rand.Next(1, 11) + ".png", UriKind.Relative));
+						byte x = (byte)Grid.GetColumn(a as UIElement);
+						byte y = (byte)Grid.GetRow(a as UIElement);
+						Singletons.startClickX = x;
+						Singletons.startClickY = y;
+					};
+					game.map[i, j].grid.PreviewMouseLeftButtonUp += (a, b) => {
+						byte x = (byte)Grid.GetColumn(a as UIElement);
+						byte y = (byte)Grid.GetRow(a as UIElement);
+						Singletons.endClickX = x;
+						Singletons.endClickY = y;
+
+						if (game.isPlayerTurn || (!game.isPlayerTurn && game.enemy == Game.Enemy.Player)) {
+							if (Singletons.startClickX == Singletons.endClickX && Singletons.startClickY == Singletons.endClickY) {
+								if (game.map[y, x].IsEmpty()) 
+									game.PlaceMeat(x, y);
+							}
+						}
+						else{
+
+						}
+
+						this.ScoreEnemy.Text = game.scoreEnemy.ToString();
+						this.ScorePlayer.Text = game.scorePlayer.ToString();
 					};
 				}
 			}
