@@ -67,6 +67,32 @@ namespace Impalers {
 
 						this.ScoreEnemy.Text = game.scoreEnemy.ToString();
 						this.ScorePlayer.Text = game.scorePlayer.ToString();
+
+						var gameResult = game.IsGameOver();
+						if(gameResult != Game.GameOverResult.None) {
+							string winnerStr;
+							if (gameResult == Game.GameOverResult.Draw)
+								winnerStr = "Draw!";
+							else {
+								if (game.enemy == Game.Enemy.Bot) {
+									if(gameResult == Game.GameOverResult.WinPlayer)
+										winnerStr = "Player win!";
+									else
+										winnerStr = "Bot win!";
+								}
+								else {
+									if (gameResult == Game.GameOverResult.WinPlayer)
+										winnerStr = "Player 1 win!";
+									else
+										winnerStr = "Player 2 win!";
+								}
+							}
+
+							if (MessageBox.Show(winnerStr + "\nDo you want to play again?", "Game over!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+								this.StartGame(game.enemy);
+							else
+								WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
+						}
 					};
 				}
 			}
