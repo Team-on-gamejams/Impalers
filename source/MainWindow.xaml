@@ -5,10 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Impalers"
         mc:Ignorable="d"
-        Title="Impalers" Height="400" Width="400"
+        Title="Impalers" 
         Icon="Resources\icon.png"
-        Style="{StaticResource VS2012WindowStyle}">
-    <Grid>
-        
+        Style="{StaticResource VS2012WindowStyle}"
+        Height="400" Width="800"
+        MinHeight="400" MinWidth="800"
+        Closed="WindowClosed"
+    >
+    <Grid Style="{StaticResource MainMenuGrid}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources\mangal.png"/>
+        </Grid.Background>
+
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="1" Content="Singleplayer" Click="ButtonSingleplayer"/>
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="2" Content="Multiplayer"  Click="ButtonMultiplayer"/>
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="3" Content="Hightscores"  Click="ButtonHightscores"/>
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="4" Content="Exit"         Click="ButtonExit"/>
+
     </Grid>
 </Window>

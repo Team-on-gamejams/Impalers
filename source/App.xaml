@@ -7,6 +7,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/CustomizedWindow/VS2012WindowStyle.xaml" />
+                <ResourceDictionary Source="Styles/Dictionary1.xaml" />
+                <ResourceDictionary Source="Styles/OrangeButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

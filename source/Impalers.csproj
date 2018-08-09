@@ -54,7 +54,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Game.cs" />
+    <Compile Include="GameWindow.xaml.cs">
+      <DependentUpon>GameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HightScoresWindow.xaml.cs">
+      <DependentUpon>HightScoresWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="styles\CustomizedWindow\VS2012WindowStyle.cs" />
+    <Compile Include="WindowManager.cs" />
+    <Page Include="GameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HightScoresWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,6 +85,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="styles\CustomizedWindow\VS2012WindowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="styles\OrangeButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -105,26 +130,28 @@
   <ItemGroup>
     <Resource Include="Resources\icon.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\ash.png" />
-    <Resource Include="Resources\mangal.png" />
-    <Resource Include="Resources\Pl1\Untitled-1.png" />
-    <Resource Include="Resources\Pl1\Untitled-3.png" />
+    <Resource Include="Resources\Meat\1.png" />
+    <Resource Include="Resources\Meat\10.png" />
+    <Resource Include="Resources\Meat\2.png" />
+    <Resource Include="Resources\Meat\3.png" />
+    <Resource Include="Resources\Meat\4.png" />
+    <Resource Include="Resources\Meat\5.png" />
+    <Resource Include="Resources\Meat\6.png" />
+    <Resource Include="Resources\Meat\7.png" />
+    <Resource Include="Resources\Meat\8.png" />
+    <Resource Include="Resources\Meat\9.png" />
+    <Resource Include="Resources\Pl1\1.png" />
+    <Resource Include="Resources\Pl1\2.png" />
     <Resource Include="Resources\Pl2\1.png" />
     <Resource Include="Resources\Pl2\2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Meat\s1.png" />
-    <Resource Include="Resources\Meat\s10.png" />
-    <Resource Include="Resources\Meat\s2.png" />
-    <Resource Include="Resources\Meat\s3.png" />
-    <Resource Include="Resources\Meat\s4.png" />
-    <Resource Include="Resources\Meat\s5.png" />
-    <Resource Include="Resources\Meat\s6.png" />
-    <Resource Include="Resources\Meat\s7.png" />
-    <Resource Include="Resources\Meat\s8.png" />
-    <Resource Include="Resources\Meat\s9.png" />
+    <Resource Include="Resources\ash.png" />
+    <Resource Include="Resources\mangal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ClickMask.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
