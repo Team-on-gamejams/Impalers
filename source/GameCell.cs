@@ -21,7 +21,6 @@ namespace Impalers {
 		public Image imageStick;
 
 		public bool isMeat;
-		public Direction stickDirection;
 		public bool isStickStart, isStickEnd, isStickBody;
 
 		public GameCell() {
@@ -49,8 +48,9 @@ namespace Impalers {
 		public void Init() {
 			imageMeat.Source = null;
 			imageStick.Source = null;
+			imageStick.VerticalAlignment = VerticalAlignment.Center;
+			imageStick.HorizontalAlignment = HorizontalAlignment.Center;
 			imageNumber = 255;
-			stickDirection = Direction.None;
 			isStickStart = isStickEnd = isStickBody = isMeat = false;
 		}
 

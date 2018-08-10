@@ -21,6 +21,7 @@ namespace Impalers {
 		Game game = new Game();
 		byte startClickX, startClickY, endClickX, endClickY;
 		bool isBotThinking = false;
+		double widthMod;
 
 		//---------------------------- Properties ---------------------------------
 
@@ -65,6 +66,9 @@ namespace Impalers {
 							else {
 								game.PlaceStick(startClickX, startClickY, endClickX, endClickY);
 							}
+
+							WriteScore();
+							CheckGameOver();
 						}
 
 						if(!game.isPlayerTurn && game.enemy == Game.Enemy.Bot && !isBotThinking) {
@@ -83,12 +87,20 @@ namespace Impalers {
 							};
 							t.Start();
 						}
-
-						WriteScore();
-						CheckGameOver();
 					};
 				}
 			}
+		}
+
+		private void Window_SizeChanged(object sender, SizeChangedEventArgs e) {
+			if (e.HeightChanged) 
+				this.Width = Height * widthMod;
+			else 
+				Height = Width / widthMod;
+		}
+
+		private void Window_Loaded(object sender, RoutedEventArgs e) {
+			widthMod = this.Width / this.Height;
 		}
 
 		void WriteScore() {

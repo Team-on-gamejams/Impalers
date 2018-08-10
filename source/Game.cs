@@ -92,15 +92,38 @@ namespace Impalers {
 
 		public void PlaceStick(byte startX, byte startY, byte endX, byte endY) {
 			short dx = (short)(startX - endX), dy = (short)(startY - endY);
-			MessageBox.Show(dx.ToString() + ' ' + dy.ToString());
 			if(dx == 0 || dy == 0) {
+
+				for(byte i = Math.Min(startX, endX); i <= Math.Max(startX, endX); ++i)
+					if (!map[startY, i].isMeat || map[startY, i].isStickStart || map[startY, i].isStickBody || (i != endY && map[startY, i].isStickEnd))
+						return;
+				for (byte i = Math.Min(startY, endY); i <= Math.Max(startY, endY); ++i)
+					if (!map[i, startX].isMeat || map[i, startX].isStickStart || map[i, startX].isStickBody || (i != endY && map[i, startX].isStickEnd))
+						return;
+
 				if (dy < 0 && (startY == 0 || map[startY - 1, startX].IsEmpty())) {
+					map[startY - 1, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
 					map[startY - 1, startX].isStickEnd = true;
-					map[startY - 1, startX].stickDirection = Direction.Down;
-					map[startY - 1, startX].imageStick.Source = new BitmapImage(new Uri("Resources/Pl1/1Start.png", UriKind.Relative));
-					map[startY - 1, startX].imageStick.RenderTransform = new RotateTransform(90);
+					map[startY - 1, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+					while (dy++ != 0) {
+						map[startY - dy, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Body.png", Rotation.Rotate90);
+						map[startY - dy, startX].isStickBody = true;
+						map[startY - dy, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+					}
+					map[endY, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1End.png", Rotation.Rotate90);
+					map[endY, startX].isStickEnd = true;
+					map[endY, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
 				}
 				isPlayerTurn = !isPlayerTurn;
+			}
+
+			BitmapImage CreateBitmapImage(string uri, Rotation rotation) {
+				BitmapImage bi = new BitmapImage();
+				bi.BeginInit();
+				bi.UriSource = new Uri(uri, UriKind.Relative);
+				bi.Rotation = Rotation.Rotate90;
+				bi.EndInit();
+				return bi;
 			}
 		}
 
@@ -123,6 +146,4 @@ namespace Impalers {
 					GameOverResult.WinEnemy);
 		}
 	}
-
-	public enum Direction : byte { Left, Up, Right, Down, None}
 }
