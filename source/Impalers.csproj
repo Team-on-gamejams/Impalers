@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Game.cs" />
+    <Compile Include="GameCell.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
@@ -153,6 +154,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\ClickMask.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pl1\1Body.png" />
+    <Resource Include="Resources\Pl1\1End.png" />
+    <Resource Include="Resources\Pl1\1Start.png" />
+    <Resource Include="Resources\Pl1\2Body.png" />
+    <Resource Include="Resources\Pl1\2End.png" />
+    <Resource Include="Resources\Pl1\2Start.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

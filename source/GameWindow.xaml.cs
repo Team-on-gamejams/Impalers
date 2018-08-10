@@ -19,6 +19,8 @@ namespace Impalers {
 	public partial class GameWindow : Window {
 		//---------------------------- Fields ---------------------------------
 		Game game = new Game();
+		byte startClickX, startClickY, endClickX, endClickY;
+		bool isBotThinking = false;
 
 		//---------------------------- Properties ---------------------------------
 
@@ -46,55 +48,71 @@ namespace Impalers {
 					game.map[i, j].grid.PreviewMouseLeftButtonDown += (a, b) => {
 						byte x = (byte)Grid.GetColumn(a as UIElement);
 						byte y = (byte)Grid.GetRow(a as UIElement);
-						Singletons.startClickX = x;
-						Singletons.startClickY = y;
+						startClickX = x;
+						startClickY = y;
 					};
 					game.map[i, j].grid.PreviewMouseLeftButtonUp += (a, b) => {
 						byte x = (byte)Grid.GetColumn(a as UIElement);
 						byte y = (byte)Grid.GetRow(a as UIElement);
-						Singletons.endClickX = x;
-						Singletons.endClickY = y;
+						endClickX = x;
+						endClickY = y;
 
 						if (game.isPlayerTurn || (!game.isPlayerTurn && game.enemy == Game.Enemy.Player)) {
-							if (Singletons.startClickX == Singletons.endClickX && Singletons.startClickY == Singletons.endClickY) {
+							if (startClickX == endClickX && startClickY == endClickY) {
 								if (game.map[y, x].IsEmpty()) 
-									game.PlaceMeat(x, y);
+									game.PlaceMeat(startClickX, startClickY);
 							}
-						}
-						else{
-
-						}
-
-						this.ScoreEnemy.Text = game.scoreEnemy.ToString();
-						this.ScorePlayer.Text = game.scorePlayer.ToString();
-
-						var gameResult = game.IsGameOver();
-						if(gameResult != Game.GameOverResult.None) {
-							string winnerStr;
-							if (gameResult == Game.GameOverResult.Draw)
-								winnerStr = "Draw!";
 							else {
-								if (game.enemy == Game.Enemy.Bot) {
-									if(gameResult == Game.GameOverResult.WinPlayer)
-										winnerStr = "Player win!";
-									else
-										winnerStr = "Bot win!";
-								}
-								else {
-									if (gameResult == Game.GameOverResult.WinPlayer)
-										winnerStr = "Player 1 win!";
-									else
-										winnerStr = "Player 2 win!";
-								}
+								game.PlaceStick(startClickX, startClickY, endClickX, endClickY);
 							}
-
-							if (MessageBox.Show(winnerStr + "\nDo you want to play again?", "Game over!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-								this.StartGame(game.enemy);
-							else
-								WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
 						}
+
+						if(!game.isPlayerTurn && game.enemy == Game.Enemy.Bot && !isBotThinking) {
+							isBotThinking = true;
+							System.Timers.Timer t = new System.Timers.Timer() {
+								AutoReset = false,
+								Interval = 500,
+							};
+							t.Elapsed += (c, d) => {
+								System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
+									game.BotTurn();
+									isBotThinking = false;
+									WriteScore();
+									CheckGameOver();
+								});
+							};
+							t.Start();
+						}
+
+						WriteScore();
+						CheckGameOver();
 					};
 				}
+			}
+		}
+
+		void WriteScore() {
+			this.ScoreEnemy.Text = game.scoreEnemy.ToString();
+			this.ScorePlayer.Text = game.scorePlayer.ToString();
+		}
+
+		void CheckGameOver() {
+			var gameResult = game.IsGameOver();
+			if (gameResult != Game.GameOverResult.None) {
+				string winnerStr;
+				if (gameResult == Game.GameOverResult.Draw)
+					winnerStr = "Draw!";
+				else {
+					if (gameResult == Game.GameOverResult.WinPlayer)
+						winnerStr = game.enemy == Game.Enemy.Bot ? "Player win!" : "Player 1 win!";
+					else
+						winnerStr = game.enemy == Game.Enemy.Bot ? "Bot win!" : "Player 2 win!" ;
+				}
+
+				if (MessageBox.Show(winnerStr + "\nDo you want to play again?", "Game over!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+					this.StartGame(game.enemy);
+				else
+					WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
 			}
 		}
 

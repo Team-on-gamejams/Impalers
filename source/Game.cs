@@ -90,6 +90,29 @@ namespace Impalers {
 			isPlayerTurn = !isPlayerTurn;
 		}
 
+		public void PlaceStick(byte startX, byte startY, byte endX, byte endY) {
+			short dx = (short)(startX - endX), dy = (short)(startY - endY);
+			MessageBox.Show(dx.ToString() + ' ' + dy.ToString());
+			if(dx == 0 || dy == 0) {
+				if (dy < 0 && (startY == 0 || map[startY - 1, startX].IsEmpty())) {
+					map[startY - 1, startX].isStickEnd = true;
+					map[startY - 1, startX].stickDirection = Direction.Down;
+					map[startY - 1, startX].imageStick.Source = new BitmapImage(new Uri("Resources/Pl1/1Start.png", UriKind.Relative));
+					map[startY - 1, startX].imageStick.RenderTransform = new RotateTransform(90);
+				}
+				isPlayerTurn = !isPlayerTurn;
+			}
+		}
+
+		public void BotTurn() {
+			byte randX, randY;
+			do {
+				randX = (byte)Singletons.rand.Next(0, Settings.sizeX);
+				randY = (byte)Singletons.rand.Next(0, Settings.sizeY);
+			} while (!map[randY, randX].IsEmpty());
+			PlaceMeat(randX, randY);
+		}
+
 		public GameOverResult IsGameOver() {
 			for (byte i = 0; i < Settings.sizeY; ++i)
 				for (byte j = 0; j < Settings.sizeX; ++j)
@@ -102,36 +125,4 @@ namespace Impalers {
 	}
 
 	public enum Direction : byte { Left, Up, Right, Down, None}
-
-	public class GameCell {
-		public Grid grid;
-		public byte imageNumber;
-		public Image imageMeat;
-
-		public bool isMeat;
-		public Direction stickDirection;
-		public bool isStickStart, isStickEnd, isStickBody;
-
-		public GameCell() {
-			grid = new Grid();
-			imageMeat = new Image();
-			grid.Children.Add(imageMeat);
-			grid.Children.Add(new Image() {
-				Source = new BitmapImage(new Uri(@"Resources\ClickMask.jpg", UriKind.Relative)),
-				Opacity = 0.001,
-				VerticalAlignment = VerticalAlignment.Stretch,
-				HorizontalAlignment = HorizontalAlignment.Stretch,
-				Stretch = Stretch.Fill,
-			});
-		}
-
-		public void Init() {
-			imageMeat.Source = null;
-			imageNumber = 255;
-			stickDirection = Direction.None;
-			isStickStart = isStickEnd = isStickBody = isMeat = false;
-		}
-
-		public bool IsEmpty() => !isMeat && !isStickEnd;
-	}
 }
