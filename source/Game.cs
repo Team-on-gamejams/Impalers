@@ -24,6 +24,11 @@ namespace Impalers {
 		public ushort scorePlayer, scoreEnemy;
 		public ushort counterMeatPlayer, counterMeatEnemy, counterImpalePlayer, counterImpaleEnemy;
 
+		public Grid TopGrid		{ get; set; }
+		public Grid BottomGrid	{ get; set; }
+		public Grid LeftGrid	{ get; set; }
+		public Grid RightGrid	{ get; set; }
+
 		public Game() {
 			for (byte i = 0; i < Settings.sizeY; ++i)
 				for (byte j = 0; j < Settings.sizeX; ++j)
@@ -102,14 +107,21 @@ namespace Impalers {
 						return;
 
 				if (dy < 0 && (startY == 0 || map[startY - 1, startX].IsEmpty())) {
-					map[startY - 1, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
-					map[startY - 1, startX].isStickEnd = true;
-					map[startY - 1, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+					if (startY != 0) {
+						map[startY - 1, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
+						map[startY - 1, startX].isStickEnd = true;
+						map[startY - 1, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+					}
+					else {
+						(TopGrid.Children[startX] as Image).Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
+					}
+
 					while (dy++ != 0) {
 						map[startY - dy, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Body.png", Rotation.Rotate90);
 						map[startY - dy, startX].isStickBody = true;
 						map[startY - dy, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
 					}
+
 					map[endY, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1End.png", Rotation.Rotate90);
 					map[endY, startX].isStickEnd = true;
 					map[endY, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;

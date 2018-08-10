@@ -16,25 +16,33 @@
         >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="58*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="50*"/>
             <RowDefinition Height="253*"/>
             <RowDefinition Height="41*"/>
+            <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="44*"/>
             <ColumnDefinition Width="620*"/>
-            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="44*"/>
+            <ColumnDefinition Width="31*"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="Resources\mangal.png"/>
         </Grid.Background>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" x:Name="ScorePlayer"/>
-        <TextBlock Grid.Row="0" Grid.Column="2" x:Name="ScoreEnemy" />
+        <TextBlock Grid.Row="0" Grid.Column="0" x:Name="ScorePlayer" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.Row="0" Grid.Column="3" x:Name="ScoreEnemy" Grid.RowSpan="2" Grid.ColumnSpan="2" />
 
-        <Grid Grid.Row="1" Grid.Column="1" ShowGridLines="True" x:Name="MeatGrid">
+        <Grid Grid.Row="1" Grid.Column="2" ShowGridLines="True" x:Name="TopGrid" />
+        <Grid Grid.Row="3" Grid.Column="2" ShowGridLines="True" x:Name="BottomGrid" />
+        <Grid Grid.Row="2" Grid.Column="1" ShowGridLines="True" x:Name="LeftGrid" />
+        <Grid Grid.Row="2" Grid.Column="3" ShowGridLines="True" x:Name="RightGrid" />
 
-        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="2" ShowGridLines="True" x:Name="MeatGrid" />
 
     </Grid>
 </Window>

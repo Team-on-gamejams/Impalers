@@ -28,17 +28,62 @@ namespace Impalers {
 
 		//---------------------------- Methods ---------------------------------
 		public void StartGame(Game.Enemy enemy) {
+			foreach (var c in TopGrid.Children) 
+				(c as Image).Source = null;
+			foreach (var c in LeftGrid.Children)
+				(c as Image).Source = null;
+			foreach (var c in BottomGrid.Children)
+				(c as Image).Source = null;
+			foreach (var c in RightGrid.Children)
+				(c as Image).Source = null;
 			this.ScoreEnemy.Text = this.ScorePlayer.Text = "0";
 			game.Start(enemy);
 		}
 
 		public GameWindow() {
 			InitializeComponent();
+
+			game.BottomGrid = BottomGrid;
+			game.TopGrid = TopGrid;
+			game.LeftGrid = LeftGrid;
+			game.RightGrid = RightGrid;
+
 			WindowManager.AddWindow(this);
-			for (byte i = 0; i < Settings.sizeY; ++i)
+			for (byte i = 0; i < Settings.sizeY; ++i) {
 				MeatGrid.RowDefinitions.Add(new RowDefinition());
-			for (byte j = 0; j < Settings.sizeX; ++j)
+
+				LeftGrid.RowDefinitions.Add(new RowDefinition());
+				LeftGrid.Children.Add(new Image() {
+					VerticalAlignment = VerticalAlignment.Stretch,
+					HorizontalAlignment = HorizontalAlignment.Left,
+				});
+				Grid.SetRow(LeftGrid.Children[i], i);
+
+				RightGrid.RowDefinitions.Add(new RowDefinition());
+				RightGrid.Children.Add(new Image() {
+					VerticalAlignment = VerticalAlignment.Stretch,
+					HorizontalAlignment = HorizontalAlignment.Left,
+				});
+				Grid.SetRow(RightGrid.Children[i], i);
+			}
+
+			for (byte i = 0; i < Settings.sizeX; ++i) {
 				MeatGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+				TopGrid.ColumnDefinitions.Add(new ColumnDefinition());
+				TopGrid.Children.Add(new Image() {
+					VerticalAlignment = VerticalAlignment.Bottom,
+					HorizontalAlignment = HorizontalAlignment.Stretch,
+				});
+				Grid.SetColumn(TopGrid.Children[i], i);
+
+				BottomGrid.ColumnDefinitions.Add(new ColumnDefinition());
+				BottomGrid.Children.Add(new Image() {
+					VerticalAlignment = VerticalAlignment.Top,
+					HorizontalAlignment = HorizontalAlignment.Stretch,
+				});
+				Grid.SetColumn(BottomGrid.Children[i], i);
+			}
 
 			for (byte i = 0; i < Settings.sizeY; ++i) {
 				for (byte j = 0; j < Settings.sizeX; ++j) {
