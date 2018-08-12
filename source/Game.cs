@@ -154,7 +154,7 @@ namespace Impalers {
 					if (map[i, j].IsEmpty())
 						return GameOverResult.None;
 			return	scoreEnemy == scorePlayer ? GameOverResult.Draw :
-					(scoreEnemy > scorePlayer ? GameOverResult.WinPlayer : 
+					(scoreEnemy < scorePlayer ? GameOverResult.WinPlayer : 
 					GameOverResult.WinEnemy);
 		}
 	}
