@@ -81,6 +81,8 @@ namespace Impalers {
 				BottomGrid.Children.Add(new Image() {
 					VerticalAlignment = VerticalAlignment.Top,
 					HorizontalAlignment = HorizontalAlignment.Stretch,
+					RenderTransformOrigin = new Point(0.5, 0.5),
+					RenderTransform = new ScaleTransform(1, -1),
 				});
 				Grid.SetColumn(BottomGrid.Children[i], i);
 			}

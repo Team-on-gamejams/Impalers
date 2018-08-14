@@ -117,26 +117,64 @@ namespace Impalers {
 						++counterImpaleEnemy;
 					}
 
+					string styleNum = (Singletons.rand.Next(0, 2) == 1 ? "1" : "2");
+
+					//Down impale
 					if (dy < 0 && (startY == 0 || map[startY - 1, startX].IsEmpty())) {
 						if (startY != 0) {
-							map[startY - 1, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
+							map[startY - 1, startX].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Start.png", Rotation.Rotate90);
 							map[startY - 1, startX].isStickEnd = true;
 							map[startY - 1, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
 						}
 						else {
-							(TopGrid.Children[startX] as Image).Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
+							(TopGrid.Children[startX] as Image).Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Start.png", Rotation.Rotate90);
 						}
 
 						while (dy++ != 0) {
-							map[startY - dy, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Body.png", Rotation.Rotate90);
+							map[startY - dy, startX].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Body.png", Rotation.Rotate90);
 							map[startY - dy, startX].isStickBody = true;
 							map[startY - dy, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
 						}
 
-						map[endY, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1End.png", Rotation.Rotate90);
+						map[endY, startX].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "End.png", Rotation.Rotate90);
 						map[endY, startX].isStickEnd = true;
 						map[endY, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
 					}
+
+					//Up impale
+					else if (dy > 0 && (startY == Settings.sizeY - 1 || map[startY + 1, startX].IsEmpty())) {
+						//MessageBox.Show("Up");
+						if (startY != Settings.sizeY - 1) {
+							map[startY + 1, startX].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2')  +
+								'/' + styleNum + "Start.png", Rotation.Rotate90);
+							map[startY + 1, startX].imageStick.RenderTransform = new ScaleTransform(1,-1);
+							map[startY + 1, startX].isStickEnd = true;
+							map[startY + 1, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+						}
+						else {
+							(BottomGrid.Children[startX] as Image).Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Start.png", Rotation.Rotate90);
+						}
+
+						while (dy-- != 0) {
+							map[startY - dy, startX].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Body.png", Rotation.Rotate90);
+							map[startY - dy, startX].isStickBody = true;
+							map[startY - dy, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+							map[startY - dy, startX].imageStick.RenderTransform = new ScaleTransform(1,-1);
+						}
+
+						map[endY, startX].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "End.png", Rotation.Rotate90);
+						map[endY, startX].isStickEnd = true;
+						map[endY, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+						map[endY, startX].imageStick.RenderTransform = new ScaleTransform(1,-1);
+					}
+
 					isPlayerTurn = !isPlayerTurn;
 				}
 
@@ -146,7 +184,7 @@ namespace Impalers {
 				BitmapImage bi = new BitmapImage();
 				bi.BeginInit();
 				bi.UriSource = new Uri(uri, UriKind.Relative);
-				bi.Rotation = Rotation.Rotate90;
+				bi.Rotation = rotation;
 				bi.EndInit();
 				return bi;
 			}

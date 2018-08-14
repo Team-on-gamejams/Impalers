@@ -43,6 +43,8 @@ namespace Impalers {
 				HorizontalAlignment = HorizontalAlignment.Stretch,
 				Stretch = Stretch.Fill,
 			});
+
+			imageStick.RenderTransformOrigin = new Point(0.5, 0.5);
 		}
 
 		public void Init() {
@@ -50,6 +52,7 @@ namespace Impalers {
 			imageStick.Source = null;
 			imageStick.VerticalAlignment = VerticalAlignment.Center;
 			imageStick.HorizontalAlignment = HorizontalAlignment.Center;
+			imageStick.RenderTransform =null;
 			imageNumber = 255;
 			isStickStart = isStickEnd = isStickBody = isMeat = false;
 		}
