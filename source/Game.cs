@@ -106,27 +106,40 @@ namespace Impalers {
 					if (!map[i, startX].isMeat || map[i, startX].isStickStart || map[i, startX].isStickBody || (i != endY && map[i, startX].isStickEnd))
 						return;
 
-				if (dy < 0 && (startY == 0 || map[startY - 1, startX].IsEmpty())) {
-					if (startY != 0) {
-						map[startY - 1, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
-						map[startY - 1, startX].isStickEnd = true;
-						map[startY - 1, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+				ushort lengthImpale = (ushort)(Math.Max(Math.Abs(dy), Math.Abs(dx)) + 1);
+				if (lengthImpale >= 3) {
+					if (isPlayerTurn) {
+						scorePlayer += (ushort)((lengthImpale - 2) * 2);
+						++counterImpalePlayer;
 					}
 					else {
-						(TopGrid.Children[startX] as Image).Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
+						scoreEnemy += (ushort)((lengthImpale - 2) * 2);
+						++counterImpaleEnemy;
 					}
 
-					while (dy++ != 0) {
-						map[startY - dy, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Body.png", Rotation.Rotate90);
-						map[startY - dy, startX].isStickBody = true;
-						map[startY - dy, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
-					}
+					if (dy < 0 && (startY == 0 || map[startY - 1, startX].IsEmpty())) {
+						if (startY != 0) {
+							map[startY - 1, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
+							map[startY - 1, startX].isStickEnd = true;
+							map[startY - 1, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+						}
+						else {
+							(TopGrid.Children[startX] as Image).Source = CreateBitmapImage("Resources/Pl1/1Start.png", Rotation.Rotate90);
+						}
 
-					map[endY, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1End.png", Rotation.Rotate90);
-					map[endY, startX].isStickEnd = true;
-					map[endY, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+						while (dy++ != 0) {
+							map[startY - dy, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1Body.png", Rotation.Rotate90);
+							map[startY - dy, startX].isStickBody = true;
+							map[startY - dy, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+						}
+
+						map[endY, startX].imageStick.Source = CreateBitmapImage("Resources/Pl1/1End.png", Rotation.Rotate90);
+						map[endY, startX].isStickEnd = true;
+						map[endY, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
+					}
+					isPlayerTurn = !isPlayerTurn;
 				}
-				isPlayerTurn = !isPlayerTurn;
+
 			}
 
 			BitmapImage CreateBitmapImage(string uri, Rotation rotation) {
