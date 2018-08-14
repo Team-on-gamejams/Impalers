@@ -63,6 +63,8 @@ namespace Impalers {
 				RightGrid.Children.Add(new Image() {
 					VerticalAlignment = VerticalAlignment.Stretch,
 					HorizontalAlignment = HorizontalAlignment.Left,
+					RenderTransformOrigin = new Point(0.5, 0.5),
+					RenderTransform = new ScaleTransform(-1, 1),
 				});
 				Grid.SetRow(RightGrid.Children[i], i);
 			}

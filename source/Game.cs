@@ -67,7 +67,7 @@ namespace Impalers {
 			map[y, x].imageMeat.BeginAnimation(Image.HeightProperty, 
 				new DoubleAnimation {
 					From = 25,
-					To = 100,
+					To = 50,
 					Duration = new Duration(TimeSpan.FromSeconds(0.5))
 				}
 			);
@@ -106,6 +106,8 @@ namespace Impalers {
 					if (!map[i, startX].isMeat || map[i, startX].isStickStart || map[i, startX].isStickBody || (i != endY && map[i, startX].isStickEnd))
 						return;
 
+				//MessageBox.Show($"{dx} {dy}");
+				
 				ushort lengthImpale = (ushort)(Math.Max(Math.Abs(dy), Math.Abs(dx)) + 1);
 				if (lengthImpale >= 3) {
 					if (isPlayerTurn) {
@@ -147,7 +149,6 @@ namespace Impalers {
 
 					//Up impale
 					else if (dy > 0 && (startY == Settings.sizeY - 1 || map[startY + 1, startX].IsEmpty())) {
-						//MessageBox.Show("Up");
 						if (startY != Settings.sizeY - 1) {
 							map[startY + 1, startX].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2')  +
 								'/' + styleNum + "Start.png", Rotation.Rotate90);
@@ -173,6 +174,61 @@ namespace Impalers {
 						map[endY, startX].isStickEnd = true;
 						map[endY, startX].imageStick.VerticalAlignment = VerticalAlignment.Stretch;
 						map[endY, startX].imageStick.RenderTransform = new ScaleTransform(1,-1);
+					}
+
+					//Left impale
+					else if (dx > 0 && (startX == Settings.sizeX - 1 || map[startY, startX + 1].IsEmpty())) {
+						if (startX != Settings.sizeX - 1) {
+							map[startY, startX + 1].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Start.png", Rotation.Rotate0);
+							map[startY, startX + 1].imageStick.RenderTransform = new ScaleTransform(-1, 1);
+							map[startY, startX + 1].isStickEnd = true;
+							map[startY, startX + 1].imageStick.HorizontalAlignment = HorizontalAlignment.Stretch;
+						}
+						else {
+							(RightGrid.Children[startY] as Image).Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Start.png", Rotation.Rotate0);
+						}
+
+						while (dx-- != 0) {
+							map[startY, startX - dx].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Body.png", Rotation.Rotate0);
+							map[startY, startX - dx].isStickBody = true;
+							map[startY, startX - dx].imageStick.HorizontalAlignment = HorizontalAlignment.Stretch;
+							map[startY, startX - dx].imageStick.RenderTransform = new ScaleTransform(-1, 1);
+						}
+
+						map[endY, endX].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "End.png", Rotation.Rotate0);
+						map[endY, endX].isStickEnd = true;
+						map[endY, endX].imageStick.HorizontalAlignment = HorizontalAlignment.Stretch;
+						map[endY, endX].imageStick.RenderTransform = new ScaleTransform(-1, 1);
+					}
+
+					//Right impale
+					else if (dx < 0 && (startX == 0 || map[startY, startX - 1].IsEmpty())) {
+						if (startX != Settings.sizeX - 1) {
+							map[startY, startX - 1].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Start.png", Rotation.Rotate0);
+							map[startY, startX - 1].isStickEnd = true;
+							map[startY, startX - 1].imageStick.HorizontalAlignment = HorizontalAlignment.Stretch;
+						}
+						else {
+							(LeftGrid.Children[startY] as Image).Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Start.png", Rotation.Rotate0);
+						}
+
+						while (dx++ != 0) {
+							map[startY, startX - dx].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "Body.png", Rotation.Rotate0);
+							map[startY, startX - dx].isStickBody = true;
+							map[startY, startX - dx].imageStick.HorizontalAlignment = HorizontalAlignment.Stretch;
+						}
+
+						map[endY, endX].imageStick.Source = CreateBitmapImage("Resources/Pl" + (isPlayerTurn ? '1' : '2') +
+								'/' + styleNum + "End.png", Rotation.Rotate0);
+						map[endY, endX].isStickEnd = true;
+						map[endY, endX].imageStick.HorizontalAlignment = HorizontalAlignment.Stretch;
 					}
 
 					isPlayerTurn = !isPlayerTurn;
