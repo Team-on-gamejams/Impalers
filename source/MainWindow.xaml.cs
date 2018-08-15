@@ -21,12 +21,15 @@ namespace Impalers{
 		//---------------------------- Fields ---------------------------------
 		static private Lazy<GameWindow> gameWindow = new Lazy<GameWindow>();
 		static private Lazy<HightScoresWindow> hightScoresWindow = new Lazy<HightScoresWindow>();
+		static private Lazy<SettingsWindow> settingsWindow = new Lazy<SettingsWindow>();
+		static private Lazy<CreditsWindow> creditsWindow = new Lazy<CreditsWindow>();
 
 		//---------------------------- Properties ---------------------------------
-		static public HightScoresWindow HightScoresWindow => hightScoresWindow.Value;
-		static public GameWindow GameWindow => gameWindow.Value;
 		static public MainWindow MenuWindow { get; private set;}
-
+		static public GameWindow GameWindow => gameWindow.Value;
+		static public HightScoresWindow HightScoresWindow => hightScoresWindow.Value;
+		static public SettingsWindow SettingsWindow => settingsWindow.Value;
+		static public CreditsWindow CreditsWindow => creditsWindow.Value;
 		//---------------------------- Methods ---------------------------------
 
 		public MainWindow(){
@@ -52,6 +55,14 @@ namespace Impalers{
 
 		private void ButtonHightscores(object sender, RoutedEventArgs e) {
 			this.ReopenWindow(HightScoresWindow);
+		}
+
+		private void ButtonSettings(object sender, RoutedEventArgs e) {
+			this.ReopenWindow(SettingsWindow);
+		}
+
+		private void ButtonCredits(object sender, RoutedEventArgs e) {
+			this.ReopenWindow(CreditsWindow);
 		}
 
 		private void ButtonExit(object sender, RoutedEventArgs e) {

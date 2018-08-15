@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CreditsWindow.xaml.cs">
+      <DependentUpon>CreditsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="GameCell.cs" />
     <Compile Include="GameWindow.xaml.cs">
@@ -63,9 +66,16 @@
       <DependentUpon>HightScoresWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Singletons.cs" />
     <Compile Include="styles\CustomizedWindow\VS2012WindowStyle.cs" />
     <Compile Include="WindowManager.cs" />
+    <Page Include="CreditsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +96,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="styles\CustomizedWindow\VS2012WindowStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

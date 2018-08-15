@@ -20,6 +20,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -30,10 +32,12 @@
             <ImageBrush ImageSource="Resources\mangal.png"/>
         </Grid.Background>
 
-        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="1" Content="Singleplayer" Click="ButtonSingleplayer"/>
-        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="2" Content="Multiplayer"  Click="ButtonMultiplayer"/>
-        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="3" Content="Hightscores"  Click="ButtonHightscores"/>
-        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="4" Content="Exit"         Click="ButtonExit"/>
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="1" Content="Player VS Bot"      Click="ButtonSingleplayer"/>
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="2" Content="Player VS Player"   Click="ButtonMultiplayer"/>
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="3" Content="Hightscores"        Click="ButtonHightscores"/>
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="4" Content="Settings"           Click="ButtonSettings"/>
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="5" Content="Credits"           Click="ButtonCredits"/>
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="6" Content="Exit"               Click="ButtonExit"/>
 
     </Grid>
 </Window>
