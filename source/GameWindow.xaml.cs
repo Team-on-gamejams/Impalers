@@ -178,7 +178,7 @@ namespace Impalers {
 		}
 
 		private void WindowClosed(object sender, EventArgs e) {
-			WindowManager.CloseAll();
+			WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
 		}
 	}
 }

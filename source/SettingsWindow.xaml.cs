@@ -28,15 +28,18 @@ namespace Impalers {
 		}
 
 		private void WindowClosed(object sender, EventArgs e) {
-			WindowManager.CloseAll();
+			ButtonReturn(null, null);
 		}
 
 		private void ButtonReturn(object sender, RoutedEventArgs e) {
-			//WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
-			Settings.Save();
-			System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-			System.Threading.Thread.Sleep(1000);
-			Application.Current.Shutdown();
+			if(SmthChamged) {
+				Settings.Save();
+				System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+				System.Threading.Thread.Sleep(1000);
+				Application.Current.Shutdown();
+			}
+			else
+				WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
 		}
 
 		void ChangeMeatStickLevel() {
@@ -58,6 +61,9 @@ namespace Impalers {
 
 		private void Animation_Click(object sender, RoutedEventArgs e) {
 			ChangeAnimationMode();
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
 		}
 	}
 }
