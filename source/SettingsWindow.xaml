@@ -12,15 +12,38 @@
         MinHeight="400" MinWidth="800"
         Closed="WindowClosed"
         >
-        <DockPanel LastChildFill="True">
-            <DockPanel.Background>
-                <ImageBrush ImageSource="Resources\mangal.png"/>
-            </DockPanel.Background>
-            <Button Style="{StaticResource OrangeButton}" DockPanel.Dock="Bottom" Width="100" HorizontalAlignment="Right" Content="Return" Click="ButtonReturn"/>
+	<DockPanel LastChildFill="True">
+		<DockPanel.Background>
+			<ImageBrush ImageSource="Resources\mangal.png"/>
+		</DockPanel.Background>
+		<Button Style="{StaticResource OrangeButton}" DockPanel.Dock="Bottom" Width="100" HorizontalAlignment="Right" Content="Return" Click="ButtonReturn"/>
 
-            <StackPanel>
+		<Grid Margin="10">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="2*"/>
+				<RowDefinition Height="3*"/>
+				<RowDefinition Height="2*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="2*"/>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="2*"/>
+			</Grid.ColumnDefinitions>
 
-            </StackPanel>
+			<StackPanel Grid.Column="1" Grid.Row="1">
+				<StackPanel.Resources>
+					<Style TargetType="CheckBox">
+						<Setter Property="Foreground" Value="White"/>
+						<Setter Property="Background" Value="Black"/>
+						<Setter Property="FontSize" Value="15"/>
+					</Style>
+				</StackPanel.Resources>
 
-        </DockPanel>
+				<CheckBox x:Name="ZLvl" Content="Meat under skewer" Click="ZLvl_Click"/>
+				<CheckBox x:Name="Animation" Content="Use animation" Click="Animation_Click"/>
+			</StackPanel>
+
+		</Grid>
+
+	</DockPanel>
 </Window>

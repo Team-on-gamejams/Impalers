@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Impalers {
 	class Singletons {
-		static public Random rand = new Random(13/*(System.Int32)(DateTime.Now.Ticks % System.Int32.MaxValue)*/);
+		static public Random rand = new Random((System.Int32)(DateTime.Now.Ticks % System.Int32.MaxValue));
 	}
 }

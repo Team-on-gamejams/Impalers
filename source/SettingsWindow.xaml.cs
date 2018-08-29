@@ -17,9 +17,14 @@ namespace Impalers {
 	/// Interaction logic for SettingsWindow.xaml
 	/// </summary>
 	public partial class SettingsWindow : System.Windows.Window {
+		bool SmthChamged = false;
+
 		public SettingsWindow() {
 			InitializeComponent();
 			WindowManager.AddWindow(this);
+
+			ZLvl.IsChecked = Settings.meatImageZ < Settings.stickImageZ;
+			Animation.IsChecked = Settings.useAnimation;
 		}
 
 		private void WindowClosed(object sender, EventArgs e) {
@@ -27,7 +32,32 @@ namespace Impalers {
 		}
 
 		private void ButtonReturn(object sender, RoutedEventArgs e) {
-			WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
+			//WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
+			Settings.Save();
+			System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+			System.Threading.Thread.Sleep(1000);
+			Application.Current.Shutdown();
+		}
+
+		void ChangeMeatStickLevel() {
+			var tmp = Settings.meatImageZ;
+			Settings.meatImageZ = Settings.stickImageZ;
+			Settings.stickImageZ = tmp;
+			SmthChamged = true;
+		}
+
+		void ChangeAnimationMode() {
+			Settings.useAnimation = !Settings.useAnimation;
+			Settings.Save();
+			SmthChamged = true;
+		}
+
+		private void ZLvl_Click(object sender, RoutedEventArgs e) {
+			ChangeMeatStickLevel();
+		}
+
+		private void Animation_Click(object sender, RoutedEventArgs e) {
+			ChangeAnimationMode();
 		}
 	}
 }

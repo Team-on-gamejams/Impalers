@@ -139,6 +139,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="settings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -176,6 +179,9 @@
     <Resource Include="Resources\Pl1\2Body.png" />
     <Resource Include="Resources\Pl1\2End.png" />
     <Resource Include="Resources\Pl1\2Start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mangalMenu.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

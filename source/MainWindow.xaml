@@ -10,7 +10,7 @@
         Style="{StaticResource VS2012WindowStyle}"
         Height="400" Width="800"
         MinHeight="400" MinWidth="800"
-        Closed="WindowClosed"
+        Closed="WindowClosed" WindowStartupLocation="CenterScreen"
     >
     <Grid Style="{StaticResource MainMenuGrid}">
         <Grid.RowDefinitions>
@@ -20,8 +20,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <!--<RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -29,15 +29,15 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="Resources\mangal.png"/>
+			<ImageBrush ImageSource="Resources\mangalMenu.png"/>
         </Grid.Background>
 
         <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="1" Content="Player VS Bot"      Click="ButtonSingleplayer"/>
         <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="2" Content="Player VS Player"   Click="ButtonMultiplayer"/>
-        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="3" Content="Hightscores"        Click="ButtonHightscores"/>
-        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="4" Content="Settings"           Click="ButtonSettings"/>
-        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="5" Content="Credits"           Click="ButtonCredits"/>
-        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="6" Content="Exit"               Click="ButtonExit"/>
+        <!--<Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="3" Content="Hightscores"        Click="ButtonHightscores"/>-->
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="3" Content="Settings"           Click="ButtonSettings"/>
+        <!--<Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="5" Content="Credits"           Click="ButtonCredits"/>-->
+        <Button Style="{StaticResource OrangeButton}" Grid.Column="1" Grid.Row="4" Content="Exit"               Click="ButtonExit"/>
 
     </Grid>
 </Window>
