@@ -186,6 +186,8 @@
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="ResizeMode" Value="CanResizeWithGrip" />
 		<Setter Property="Foreground" Value="White" />
+		<Setter Property="FontFamily" Value="{DynamicResource MyFlavourSans}"/>
+		<Setter Property="FontWeight" Value="Bold"/>
 
 		<Setter Property="Template">
 			<Setter.Value>

@@ -67,7 +67,7 @@ namespace Impalers {
 			map[y, x].imageMeat.BeginAnimation(Image.HeightProperty, 
 				new DoubleAnimation {
 					From = 25,
-					To = 50,
+					To = 100,
 					Duration = new Duration(TimeSpan.FromSeconds(0.5))
 				}
 			);

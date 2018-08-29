@@ -33,13 +33,13 @@
             <ImageBrush ImageSource="Resources\mangal.png"/>
         </Grid.Background>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" x:Name="ScorePlayer" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-        <TextBlock Grid.Row="0" Grid.Column="3" x:Name="ScoreEnemy" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+		<TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" x:Name="ScorePlayer" />
+		<TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" x:Name="ScoreEnemy"/>
 
         <Grid Grid.Row="1" Grid.Column="2" ShowGridLines="True" x:Name="TopGrid" />
         <Grid Grid.Row="3" Grid.Column="2" ShowGridLines="True" x:Name="BottomGrid" />
         <Grid Grid.Row="2" Grid.Column="1" ShowGridLines="True" x:Name="LeftGrid" />
-        <Grid Grid.Row="2" Grid.Column="3" ShowGridLines="True" x:Name="RightGrid" />
+        <Grid Grid.Row="2" Grid.Column="3" ShowGridLines="True" x:Name="RightGrid"/>
 
 
         <Grid Grid.Row="2" Grid.Column="2" ShowGridLines="True" x:Name="MeatGrid" />

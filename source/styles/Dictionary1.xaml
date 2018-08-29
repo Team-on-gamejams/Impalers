@@ -9,4 +9,11 @@
         </Style.Resources>
     </Style>
 
+	<FontFamily x:Key="MyFlavourSans">Comic Sans MS</FontFamily>
+
+	<Style x:Key="SansWindow" TargetType="Window">
+		<Setter Property="FontFamily" Value="{DynamicResource MyFlavourSans}"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+	</Style>
+
 </ResourceDictionary>
