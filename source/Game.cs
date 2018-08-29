@@ -64,13 +64,15 @@ namespace Impalers {
 			map[y, x].imageNumber = randomImageNumber;
 			map[y, x].imageMeat.Source = new BitmapImage(new Uri("Resources/Meat/" + randomImageNumber.ToString() + ".png", UriKind.Relative));
 
-			map[y, x].imageMeat.BeginAnimation(Image.HeightProperty, 
-				new DoubleAnimation {
-					From = 25,
-					To = 100,
-					Duration = new Duration(TimeSpan.FromSeconds(0.5))
-				}
-			);
+			if(Settings.useAnimation) {
+				map[y, x].imageMeat.BeginAnimation(Image.HeightProperty,
+					new DoubleAnimation {
+						From = 25,
+						To = 100,
+						Duration = new Duration(TimeSpan.FromSeconds(0.5))
+					}
+				);
+			}
 
 			//System.Timers.Timer t = new System.Timers.Timer() {Interval = 100, AutoReset=true};
 			//t.Elapsed += (a, b)=> {

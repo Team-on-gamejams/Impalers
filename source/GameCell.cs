@@ -68,6 +68,12 @@ namespace Impalers {
 				HorizontalAlignment = HorizontalAlignment.Stretch,
 				Stretch = Stretch.Fill,
 			});
+
+			Grid.SetZIndex(imageMeat, Settings.meatImageZ);
+			Grid.SetZIndex(imageStickEnd[0], Settings.stickImageZ);
+			Grid.SetZIndex(imageStickEnd[1], Settings.stickImageZ);
+			Grid.SetZIndex(imageStickEnd[2], Settings.stickImageZ);
+			Grid.SetZIndex(imageStick, Settings.stickImageZ);
 		}
 
 		public void Init() {
