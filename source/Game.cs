@@ -275,12 +275,89 @@ namespace Impalers {
 		}
 
 		public void BotTurn() {
-			byte randX, randY;
-			do {
-				randX = (byte)Singletons.rand.Next(0, Settings.sizeX);
-				randY = (byte)Singletons.rand.Next(0, Settings.sizeY);
-			} while (!map[randY, randX].IsEmpty());
-			PlaceMeat(randX, randY);
+			if(!(Impale() || PlaceInChessOrder(false) || PlaceInChessOrder(true) || PlaceInEmptyNeightborns() || PlaceOnAnyPos()))
+				MessageBox.Show("Error in BotTurn(). Impossible if worked", "Never reached code");
+
+			bool Impale() {
+
+				return false;
+			}
+
+			bool PlaceInChessOrder(bool useBorder) {
+				List<Tuple<byte, byte>> pos = new List<Tuple<byte, byte>>();
+				for(byte x = 0; x < Settings.sizeX; ++x) {
+					for(byte y = 0; y < Settings.sizeY; ++y) {
+						if(
+							map[y, x].IsEmpty() &&
+							(y - 1 != -1 ? map[y - 1, x].IsEmpty() : true) &&
+							(y + 1 != Settings.sizeY ? map[y + 1, x].IsEmpty() : true) &&
+							(x - 1 != -1 ? map[y, x - 1].IsEmpty() : true) &&
+							(x + 1 != Settings.sizeX ? map[y, x + 1].IsEmpty() : true)
+						) {
+							byte diagCnt = 0;
+							if((y - 1 != -1 && x - 1 != -1 ? !map[y - 1, x - 1].IsEmpty() : useBorder))
+								++diagCnt;
+							if((y + 1 != Settings.sizeY && x - 1 != -1 ? !map[y + 1, x - 1].IsEmpty() : useBorder))
+								++diagCnt;
+							if((y - 1 != -1 && x + 1 != Settings.sizeX ? !map[y - 1, x + 1].IsEmpty() : useBorder))
+								++diagCnt;
+							if((y + 1 != Settings.sizeY && x + 1 != Settings.sizeX ? !map[y + 1, x + 1].IsEmpty() : useBorder))
+								++diagCnt;
+							if(diagCnt != 0)
+								pos.Add(new Tuple<byte, byte>(x, y));
+						}
+					}
+				}
+
+				if(pos.Count == 0)
+					return false;
+
+				ushort randId = (ushort) Singletons.rand.Next(0, pos.Count);
+				PlaceMeat(pos[randId].Item1, pos[randId].Item2);
+
+				return true;
+			}
+
+			bool PlaceInEmptyNeightborns() {
+				List<Tuple<byte, byte>> pos = new List<Tuple<byte, byte>>();
+				for(byte x = 0; x < Settings.sizeX; ++x) {
+					for(byte y = 0; y < Settings.sizeY; ++y) {
+						if(
+							map[y, x].IsEmpty() &&
+							(y - 1 != -1 ? map[y - 1, x].IsEmpty() : true) &&
+							(y + 1 != Settings.sizeY ? map[y + 1, x].IsEmpty() : true) &&
+							(x - 1 != -1 ? map[y, x - 1].IsEmpty() : true) &&
+							(x + 1 != Settings.sizeX ? map[y, x + 1].IsEmpty() : true)
+						) {
+							pos.Add(new Tuple<byte, byte>(x, y));
+						}
+					}
+				}
+
+				if(pos.Count == 0)
+					return false;
+
+				ushort randId = (ushort) Singletons.rand.Next(0, pos.Count);
+				PlaceMeat(pos[randId].Item1, pos[randId].Item2);
+
+				return true;
+			}
+
+			bool PlaceOnAnyPos() {
+				List<Tuple<byte, byte>> pos = new List<Tuple<byte, byte>>();
+				for(byte x = 0; x < Settings.sizeX; ++x) 
+					for(byte y = 0; y < Settings.sizeY; ++y) 
+						if(map[y, x].IsEmpty()) 
+							pos.Add(new Tuple<byte, byte>(x, y));
+
+				if(pos.Count == 0)
+					return false;
+
+				ushort randId = (ushort) Singletons.rand.Next(0, pos.Count);
+				PlaceMeat(pos[randId].Item1, pos[randId].Item2);
+
+				return true;
+			}
 		}
 
 		public GameOverResult IsGameOver() {
