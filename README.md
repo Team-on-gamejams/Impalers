@@ -19,7 +19,7 @@
  
 
 ## Eng (google translate)
-​### Game for competition  [Logical kebabs](https://gamedev.ru/projects/forum/?id=237876)​​
+### Game for competition  [Logical kebabs](https://gamedev.ru/projects/forum/?id=237876)​​
 
 #### Rules​
  * During the turn of the game the player can either put the meat, or impale the meat onto the skewer
