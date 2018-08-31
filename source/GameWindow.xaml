@@ -42,7 +42,10 @@
         <Grid Grid.Row="2" Grid.Column="3" ShowGridLines="True" x:Name="RightGrid"/>
 
 
-        <Grid Grid.Row="2" Grid.Column="2" ShowGridLines="True" x:Name="MeatGrid" />
+		<Grid Grid.Row="2" Grid.Column="2" ShowGridLines="True" x:Name="MeatGrid">
+			<Canvas Panel.ZIndex="100" x:Name="MeatCanvas">
 
-    </Grid>
+			</Canvas>
+		</Grid>
+	</Grid>
 </Window>

@@ -22,21 +22,32 @@ namespace Impalers {
 		byte startClickX, startClickY, endClickX, endClickY;
 		bool isBotThinking = false;
 		double widthMod;
+		Line impaleLine;
+		Size gridSize, gridHalfSize;
 
 		//---------------------------- Properties ---------------------------------
 
 
 		//---------------------------- Methods ---------------------------------
 		public void StartGame(Game.Enemy enemy) {
-			foreach (var c in TopGrid.Children) 
+			foreach(var c in TopGrid.Children)
 				(c as Image).Source = null;
-			foreach (var c in LeftGrid.Children)
+			foreach(var c in LeftGrid.Children)
 				(c as Image).Source = null;
-			foreach (var c in BottomGrid.Children)
+			foreach(var c in BottomGrid.Children)
 				(c as Image).Source = null;
-			foreach (var c in RightGrid.Children)
+			foreach(var c in RightGrid.Children)
 				(c as Image).Source = null;
 			this.ScoreEnemy.Text = this.ScorePlayer.Text = "0";
+
+			impaleLine = new Line() {
+				Fill = Brushes.Red,
+				StrokeThickness = 5,
+				Stroke = Brushes.Red,
+
+			};
+			MeatCanvas.Children.Add(impaleLine);
+
 			game.Start(enemy);
 		}
 
@@ -48,8 +59,17 @@ namespace Impalers {
 			game.LeftGrid = LeftGrid;
 			game.RightGrid = RightGrid;
 
+			MeatCanvas.MouseLeave += (a, b) => {
+				impaleLine.X1 = impaleLine.X2 = impaleLine.Y1 = impaleLine.Y2 = -1000;
+			};
+
+			this.SizeChanged += (a, b) => {
+				gridSize = new Size(game.map[0, 0].grid.RenderSize.Width, game.map[0, 0].grid.RenderSize.Height);
+				gridHalfSize = new Size(gridSize.Width / 2, gridSize.Height / 2);
+			};
+
 			WindowManager.AddWindow(this);
-			for (byte i = 0; i < Settings.sizeY; ++i) {
+			for(byte i = 0; i < Settings.sizeY; ++i) {
 				MeatGrid.RowDefinitions.Add(new RowDefinition());
 
 				LeftGrid.RowDefinitions.Add(new RowDefinition());
@@ -69,7 +89,7 @@ namespace Impalers {
 				Grid.SetRow(RightGrid.Children[i], i);
 			}
 
-			for (byte i = 0; i < Settings.sizeX; ++i) {
+			for(byte i = 0; i < Settings.sizeX; ++i) {
 				MeatGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
 				TopGrid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -89,27 +109,54 @@ namespace Impalers {
 				Grid.SetColumn(BottomGrid.Children[i], i);
 			}
 
-			for (byte i = 0; i < Settings.sizeY; ++i) {
-				for (byte j = 0; j < Settings.sizeX; ++j) {
+			for(byte i = 0; i < Settings.sizeY; ++i) {
+				for(byte j = 0; j < Settings.sizeX; ++j) {
 					this.MeatGrid.Children.Add(game.map[i, j].grid);
 					Grid.SetRow(game.map[i, j].grid, i);
 					Grid.SetColumn(game.map[i, j].grid, j);
 
 					game.map[i, j].grid.PreviewMouseLeftButtonDown += (a, b) => {
-						byte x = (byte)Grid.GetColumn(a as UIElement);
-						byte y = (byte)Grid.GetRow(a as UIElement);
+						byte x = (byte) Grid.GetColumn(a as UIElement);
+						byte y = (byte) Grid.GetRow(a as UIElement);
 						startClickX = x;
 						startClickY = y;
 					};
+
+					game.map[i, j].grid.PreviewMouseMove += (a, b) => {
+						if(b.LeftButton == MouseButtonState.Pressed && game.isPlayerTurn) {
+							byte x = (byte) Grid.GetColumn(a as UIElement);
+							byte y = (byte) Grid.GetRow(a as UIElement);
+							if((x != startClickX && y == startClickY) || (x == startClickX && y != startClickY)) {
+								impaleLine.X1 = startClickX * gridSize.Width + gridHalfSize.Width;
+								impaleLine.X2 = x * gridSize.Width + gridHalfSize.Width;
+								impaleLine.Y1 = startClickY * gridSize.Height + gridHalfSize.Height;
+								impaleLine.Y2 = y * gridSize.Height + gridHalfSize.Height;
+
+								if(x < startClickX)
+									impaleLine.X1 += gridSize.Width;
+								else
+								if(x > startClickX)
+									impaleLine.X1 -= gridSize.Width;
+
+								if(y < startClickY)
+									impaleLine.Y1 += gridSize.Height;
+								else if(y > startClickY)
+									impaleLine.Y1 -= gridSize.Height;
+							}
+						}
+					};
+
 					game.map[i, j].grid.PreviewMouseLeftButtonUp += (a, b) => {
-						byte x = (byte)Grid.GetColumn(a as UIElement);
-						byte y = (byte)Grid.GetRow(a as UIElement);
+						impaleLine.X1 = impaleLine.X2 = impaleLine.Y1 = impaleLine.Y2 = -1000;
+
+						byte x = (byte) Grid.GetColumn(a as UIElement);
+						byte y = (byte) Grid.GetRow(a as UIElement);
 						endClickX = x;
 						endClickY = y;
 
-						if (game.isPlayerTurn || (!game.isPlayerTurn && game.enemy == Game.Enemy.Player)) {
-							if (startClickX == endClickX && startClickY == endClickY) {
-								if (game.map[y, x].IsEmpty()) 
+						if(game.isPlayerTurn || (!game.isPlayerTurn && game.enemy == Game.Enemy.Player)) {
+							if(startClickX == endClickX && startClickY == endClickY) {
+								if(game.map[y, x].IsEmpty())
 									game.PlaceMeat(startClickX, startClickY);
 							}
 							else {
@@ -127,7 +174,7 @@ namespace Impalers {
 								Interval = 500,
 							};
 							t.Elapsed += (c, d) => {
-								System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
+								System.Windows.Application.Current.Dispatcher.Invoke((Action) delegate {
 									game.BotTurn();
 									isBotThinking = false;
 									WriteScore();
@@ -142,9 +189,9 @@ namespace Impalers {
 		}
 
 		private void Window_SizeChanged(object sender, SizeChangedEventArgs e) {
-			if (e.HeightChanged) 
+			if(e.HeightChanged)
 				this.Width = Height * widthMod;
-			else 
+			else
 				Height = Width / widthMod;
 		}
 
@@ -159,18 +206,18 @@ namespace Impalers {
 
 		void CheckGameOver() {
 			var gameResult = game.IsGameOver();
-			if (gameResult != Game.GameOverResult.None) {
+			if(gameResult != Game.GameOverResult.None) {
 				string winnerStr;
-				if (gameResult == Game.GameOverResult.Draw)
+				if(gameResult == Game.GameOverResult.Draw)
 					winnerStr = "Draw!";
 				else {
-					if (gameResult == Game.GameOverResult.WinPlayer)
+					if(gameResult == Game.GameOverResult.WinPlayer)
 						winnerStr = game.enemy == Game.Enemy.Bot ? "Player win!" : "Player 1 win!";
 					else
-						winnerStr = game.enemy == Game.Enemy.Bot ? "Bot win!" : "Player 2 win!" ;
+						winnerStr = game.enemy == Game.Enemy.Bot ? "Bot win!" : "Player 2 win!";
 				}
 
-				if (MessageBox.Show(winnerStr + "\nDo you want to play again?", "Game over!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				if(MessageBox.Show(winnerStr + "\nDo you want to play again?", "Game over!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 					this.StartGame(game.enemy);
 				else
 					WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
