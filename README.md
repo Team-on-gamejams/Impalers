@@ -1,4 +1,4 @@
-﻿# ![](readme/icon.png) Impalers
+﻿# ![](readme/iconSmall.png) Impalers
 ### [Конкурс: Логические шашлыки](https://gamedev.ru/projects/forum/?id=237876)
 
 
@@ -18,5 +18,5 @@
  
  
 #### SCREENSHOTS
-![](readme/img1.png)
-![](readme/img2.png)
+![](readme/scr1.png)
+![](readme/scr2.png)
