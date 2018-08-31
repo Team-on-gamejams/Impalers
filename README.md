@@ -18,7 +18,7 @@
  * Зажать мышь -> Протянуть по нескольким кускам -> отпусть - наколоть мясо на шампур
  
 
-## Eng (google translate):
+## Eng (google translate)
 ​### Game for competition  [Logical kebabs](https://gamedev.ru/projects/forum/?id=237876)​​
 
 #### Rules​
