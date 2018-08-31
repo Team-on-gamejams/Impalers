@@ -195,6 +195,13 @@ namespace Impalers {
 				Height = Width / widthMod;
 		}
 
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+			if(IsActive) {
+				e.Cancel = true;
+				WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
+			}
+		}
+
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
 			widthMod = this.Width / this.Height;
 		}
@@ -222,10 +229,6 @@ namespace Impalers {
 				else
 					WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
 			}
-		}
-
-		private void WindowClosed(object sender, EventArgs e) {
-			WindowManager.ReopenWindow(this, MainWindow.MenuWindow);
 		}
 	}
 }

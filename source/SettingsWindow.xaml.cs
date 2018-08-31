@@ -17,7 +17,7 @@ namespace Impalers {
 	/// Interaction logic for SettingsWindow.xaml
 	/// </summary>
 	public partial class SettingsWindow : System.Windows.Window {
-		bool SmthChamged = false;
+		bool SmthChamged = false, closedAlready = false;
 
 		public SettingsWindow() {
 			InitializeComponent();
@@ -27,12 +27,9 @@ namespace Impalers {
 			Animation.IsChecked = Settings.useAnimation;
 		}
 
-		private void WindowClosed(object sender, EventArgs e) {
-			ButtonReturn(null, null);
-		}
-
 		private void ButtonReturn(object sender, RoutedEventArgs e) {
 			if(SmthChamged) {
+				closedAlready = true;
 				Settings.Save();
 				System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
 				System.Threading.Thread.Sleep(1000);
@@ -64,6 +61,10 @@ namespace Impalers {
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+			if(IsActive && !closedAlready) {
+				closedAlready = e.Cancel = true;
+				ButtonReturn(null, null);
+			}
 		}
 	}
 }
