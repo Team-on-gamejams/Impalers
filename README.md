@@ -1,5 +1,22 @@
-﻿# Impalers
+﻿# ![](readme/icon.png) Impalers
 ### [Конкурс: Логические шашлыки](https://gamedev.ru/projects/forum/?id=237876)
 
 
-![](readme/img1.jpg)
+#### HOW TO PLAY 
+ 
+
+
+### OTHER
+-----
+#### TOOLS USED
+ * Visual Studio 2017
+ * Photoshop CS2
+ 
+ 
+#### ABOUT CODE
+ * C#, WPF
+ 
+ 
+#### SCREENSHOTS
+![](readme/img1.png)
+![](readme/img2.png)
