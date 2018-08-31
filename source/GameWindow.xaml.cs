@@ -213,6 +213,7 @@ namespace Impalers {
 
 		void CheckGameOver() {
 			var gameResult = game.IsGameOver();
+			WriteScore();
 			if(gameResult != Game.GameOverResult.None) {
 				string winnerStr;
 				if(gameResult == Game.GameOverResult.Draw)

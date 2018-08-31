@@ -289,7 +289,7 @@ namespace Impalers {
 
 				for(byte x = 0; x < Settings.sizeX; ++x) {
 					for(byte y = 0; y < Settings.sizeY; ++y) {
-						if(map[y, x].isMeat) {
+						if(map[y, x].isMeat && !map[y, x].isStickBody && !map[y, x].isStickEnd) {
 							if(x + 1 == Settings.sizeX || map[y, x + 1].IsEmpty()) {
 								lastImpLength = CheckImpaleLeft(x, y);
 								if(lastImpLength != 0)
@@ -322,7 +322,7 @@ namespace Impalers {
 					var i = avaliableImpales[0];
 
 					if(i.Item3 == 0) {
-						MessageBox.Show(string.Format("{0} {1} {2} {3}", i.Item1, i.Item2, (byte) (i.Item1 - i.Item4), i.Item2));
+						//MessageBox.Show(string.Format("{0} {1} {2} {3}", i.Item1, i.Item2, (byte) (i.Item1 - i.Item4), i.Item2));
 						PlaceStick(i.Item1, i.Item2, (byte) (i.Item1 - i.Item4), i.Item2);
 					}
 					else if(i.Item3 == 2)
@@ -354,15 +354,51 @@ namespace Impalers {
 				}
 
 				byte CheckImpaleRight(byte x, byte y) {
-					return 0;
+					byte len = 0;
+					while(++x != Settings.sizeX) {
+						if(!map[y, x].isMeat || map[y, x].isStickBody || map[y, x].isStickStart)
+							break;
+						++len;
+						if(map[y, x].isStickEnd)
+							break;
+					}
+
+					if(len < 2)
+						len = 0;
+					return len;
 				}
 
 				byte CheckImpaleUp(byte x, byte y) {
-					return 0;
+					int Y = y;
+
+					byte len = 0;
+					while(--Y != -1) {
+						--y;
+						if(!map[y, x].isMeat || map[y, x].isStickBody || map[y, x].isStickStart)
+							break;
+						++len;
+						if(map[y, x].isStickEnd)
+							break;
+					}
+
+					if(len < 2)
+						len = 0;
+					return len;
 				}
 
 				byte CheckImpaleDown(byte x, byte y) {
-					return 0;
+					byte len = 0;
+					while(++y != Settings.sizeY) {
+						if(!map[y, x].isMeat || map[y, x].isStickBody || map[y, x].isStickStart)
+							break;
+						++len;
+						if(map[y, x].isStickEnd)
+							break;
+					}
+
+					if(len < 2)
+						len = 0;
+					return len;
 				}
 			}
 
@@ -448,6 +484,17 @@ namespace Impalers {
 				for(byte j = 0; j < Settings.sizeX; ++j)
 					if(map[i, j].IsEmpty())
 						return GameOverResult.None;
+
+			if(counterImpalePlayer > counterImpaleEnemy)
+				scorePlayer += 5;
+			else if(counterImpalePlayer < counterImpaleEnemy)
+				scoreEnemy += 5;
+
+			if(counterMeatPlayer > counterMeatEnemy)
+				scorePlayer += 5;
+			else if(counterMeatPlayer < counterMeatEnemy)
+				scoreEnemy += 5;
+
 			return scoreEnemy == scorePlayer ? GameOverResult.Draw :
 					(scoreEnemy < scorePlayer ? GameOverResult.WinPlayer :
 					GameOverResult.WinEnemy);
