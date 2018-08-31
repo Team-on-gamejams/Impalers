@@ -29,6 +29,8 @@ namespace Impalers {
 		public Grid LeftGrid	{ get; set; }
 		public Grid RightGrid	{ get; set; }
 
+		List<Tuple<byte, byte, byte>> avaliableImpales = new List<Tuple<byte, byte, byte>>(10);
+
 		public Game() {
 			for (byte i = 0; i < Settings.sizeY; ++i)
 				for (byte j = 0; j < Settings.sizeX; ++j)
@@ -281,8 +283,69 @@ namespace Impalers {
 				MessageBox.Show("Error in BotTurn(). Impossible if worked", "Never reached code");
 
 			bool Impale() {
+				avaliableImpales.Clear();
+				byte lastImpLength = 0;
 
-				return false;
+				for(byte x = 0; x < Settings.sizeX; ++x) {
+					for(byte y = 0; y < Settings.sizeY; ++y) {
+						if(map[y, x].isMeat) {
+							if(x + 1 == Settings.sizeX || map[y, x + 1].IsEmpty()) {
+								lastImpLength = CheckImpaleLeft(x, y);
+								if(lastImpLength != 0)
+									avaliableImpales.Add(new Tuple<byte, byte, byte>(x, y, 0));
+							}
+
+							if(y + 1 == Settings.sizeY || map[y + 1, x].IsEmpty()) {
+								lastImpLength = CheckImpaleUp(x, y);
+								if(lastImpLength != 0)
+									avaliableImpales.Add(new Tuple<byte, byte, byte>(x, y, 1));
+							}
+
+							if(x == 0 || map[y, x - 1].IsEmpty()) {
+								lastImpLength = CheckImpaleRight(x, y);
+								if(lastImpLength != 0)
+									avaliableImpales.Add(new Tuple<byte, byte, byte>(x, y, 2));
+							}
+
+							if(y == 0 || map[y - 1, x].IsEmpty()) {
+								lastImpLength = CheckImpaleDown(x, y);
+								if(lastImpLength != 0)
+									avaliableImpales.Add(new Tuple<byte, byte, byte>(x, y, 3));
+							}
+						}
+					}
+				}
+
+				if(avaliableImpales.Count != 0) {
+					avaliableImpales.Sort((a, b) => b.Item3 - a.Item3);
+					var i = avaliableImpales[0];
+					if(i.Item3 == 0)
+						PlaceStick(i.Item1, i.Item2, (byte)(i.Item1 - i.Item3), i.Item2);
+					else if(i.Item3 == 2)
+						PlaceStick(i.Item1, i.Item2, (byte) (i.Item1 + i.Item3), i.Item2);
+					else if(i.Item3 == 1)
+						PlaceStick(i.Item1, i.Item2, i.Item1, (byte)(i.Item2 - i.Item3));
+					else if(i.Item3 == 3)
+						PlaceStick(i.Item1, i.Item2, i.Item1, (byte) (i.Item2 + i.Item3));
+				}
+
+				return isPlayerTurn;
+
+				byte CheckImpaleLeft(byte x, byte y) {
+					return 0;
+				}
+
+				byte CheckImpaleRight(byte x, byte y) {
+					return 0;
+				}
+
+				byte CheckImpaleUp(byte x, byte y) {
+					return 0;
+				}
+
+				byte CheckImpaleDown(byte x, byte y) {
+					return 0;
+				}
 			}
 
 			bool PlaceInChessOrder(bool useBorder) {
