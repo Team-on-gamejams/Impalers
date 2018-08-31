@@ -183,5 +183,15 @@
   <ItemGroup>
     <Resource Include="Resources\mangalMenu.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pl2\1Body.png" />
+    <Resource Include="Resources\Pl2\1End.png" />
+    <Resource Include="Resources\Pl2\1res.png" />
+    <Resource Include="Resources\Pl2\1Start.png" />
+    <Resource Include="Resources\Pl2\2Body.png" />
+    <Resource Include="Resources\Pl2\2End.png" />
+    <Resource Include="Resources\Pl2\2res.png" />
+    <Resource Include="Resources\Pl2\2Start.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
