@@ -2,7 +2,7 @@
  
 ## Eng
 ### Game for competition  [Logical kebabs](https://gamedev.ru/projects/forum/?id=237876)​​
-
+Competition: Logical kebabs. Complicated tic-tac-toe with kebab textures
 #### Rules
  * During the turn of the game the player can either put the meat, or impale the meat onto the skewer
  * Meat can be put in any free cell
@@ -22,6 +22,7 @@
 ### [Конкурс: Логические шашлыки](https://gamedev.ru/projects/forum/?id=237876)
 
 ## Ru
+Конкурс: Логические шашлыки. Усложненные крестики-нолики с текстурами шашлыка
 #### Правила
  * За ход игрок может либо положить мясо, либо наколоть мясо на шампур
  * Мясо можно класть в любую свободную клетку
